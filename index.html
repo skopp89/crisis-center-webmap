@@ -164,56 +164,42 @@
                 },
                 mouseover: highlightFeature,
             });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ABBREV'] !== null ? autolinker.link(String(feature.properties['ABBREV']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['GNIS_ID'] !== null ? autolinker.link(String(feature.properties['GNIS_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['FIPS_CODE'] !== null ? autolinker.link(String(feature.properties['FIPS_CODE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['SWIS'] !== null ? autolinker.link(String(feature.properties['SWIS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NYSP_ZONE'] !== null ? autolinker.link(String(feature.properties['NYSP_ZONE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['POP1990'] !== null ? autolinker.link(String(feature.properties['POP1990']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['POP2000'] !== null ? autolinker.link(String(feature.properties['POP2000']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['POP2010'] !== null ? autolinker.link(String(feature.properties['POP2010']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['POP2020'] !== null ? autolinker.link(String(feature.properties['POP2020']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['DOS_LL'] !== null ? autolinker.link(String(feature.properties['DOS_LL']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['DOSLL_DATE'] !== null ? autolinker.link(String(feature.properties['DOSLL_DATE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NYC'] !== null ? autolinker.link(String(feature.properties['NYC']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CALC_SQ_MI'] !== null ? autolinker.link(String(feature.properties['CALC_SQ_MI']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['DATEMOD'] !== null ? autolinker.link(String(feature.properties['DATEMOD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = `
+<div style="width:340px; max-height:520px; overflow:auto; padding:6px;">
+
+<h3 style="margin:0 0 8px 0;">${feature.properties.Program_Na || ''}</h3>
+
+<p style="margin:0 0 8px 0;">
+<b>Type:</b> ${feature.properties.Program_Ty || ''}<br>
+<b>Population:</b> ${feature.properties.Population || ''}
+</p>
+
+<p style="margin:0 0 8px 0;">
+<b>Address:</b><br>
+${feature.properties.Program_Ad || ''}, ${feature.properties.Program_Ci || ''}, ${feature.properties.Program_St || ''} ${feature.properties.Program_Zi || ''}
+</p>
+
+<p style="margin:0 0 8px 0;">
+<b>Phone:</b> ${feature.properties.Agency_Pho || ''}
+</p>
+
+${feature.properties.subway_Sto ? `
+<hr style="margin:8px 0;">
+<p><b>🚇 Nearest Subway:</b><br>
+${feature.properties.subway_Sto}<br>
+<b>Routes:</b> ${feature.properties.subway_Day || ''}
+</p>` : ''}
+
+${feature.properties.route_shor ? `
+<hr style="margin:8px 0;">
+<p><b>🚌 Nearest Bus Route:</b><br>
+${feature.properties.route_shor}
+</p>
+<p><b>Agency:</b> ${feature.properties.agency_cle || ''}
+</p>` : ''}
+
+</div>
+`;
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
