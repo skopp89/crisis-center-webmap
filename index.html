@@ -159,7 +159,36 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_NYCounties_1(feature, layer) {
+        function subwayBullet(route) {
+    route = String(route).trim();
+
+    let bg = '#666';
+    let color = 'white';
+
+    if (['1','2','3'].includes(route)) bg = '#EE352E';
+    else if (['4','5','6','6X'].includes(route)) bg = '#00933C';
+    else if (['7','7X'].includes(route)) bg = '#B933AD';
+    else if (['A','C','E'].includes(route)) bg = '#0039A6';
+    else if (['B','D','F','M'].includes(route)) bg = '#FF6319';
+    else if (['G'].includes(route)) bg = '#6CBE45';
+    else if (['J','Z'].includes(route)) bg = '#996633';
+    else if (['L'].includes(route)) bg = '#A7A9AC';
+    else if (['N','Q','R','W'].includes(route)) { bg = '#FCCC0A'; color = 'black'; }
+    else if (['S'].includes(route)) bg = '#808183';
+    else if (['T'].includes(route)) bg = '#00ADD0';
+
+    return `<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:${bg};color:${color};font-weight:bold;font-size:12px;margin-right:4px;">${route}</span>`;
+}
+
+function subwayBullets(routes) {
+    if (!routes) return '';
+    return String(routes)
+        .trim()
+        .split(/\s+/)
+        .map(subwayBullet)
+        .join('');
+}
+			function pop_NYCounties_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
