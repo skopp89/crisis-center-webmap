@@ -318,7 +318,7 @@ ${feature.properties.Program_Ad || ''}, ${feature.properties.Program_Ci || ''}, 
 ${
 feature.properties.subway_Sto
 ? `<hr style="margin:8px 0;"><p style="margin:0 0 8px 0;"><b>🚇 Nearest Subway:</b><br>
-${feature.properties.subway_Sto || ''}<br><b>Routes:</b> ${feature.properties.subway_Day || ''}</p>`
+${feature.properties.subway_Sto || ''}<br><b>Routes:</b> ${subwayBullets(feature.properties.subway_Day)}</p>`
 : ''
 }
 
