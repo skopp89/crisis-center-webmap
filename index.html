@@ -159,36 +159,7 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function subwayBullet(route) {
-    route = String(route).trim();
-
-    let bg = '#666';
-    let color = 'white';
-
-    if (['1','2','3'].includes(route)) bg = '#EE352E';
-    else if (['4','5','6','6X'].includes(route)) bg = '#00933C';
-    else if (['7','7X'].includes(route)) bg = '#B933AD';
-    else if (['A','C','E'].includes(route)) bg = '#0039A6';
-    else if (['B','D','F','M'].includes(route)) bg = '#FF6319';
-    else if (['G'].includes(route)) bg = '#6CBE45';
-    else if (['J','Z'].includes(route)) bg = '#996633';
-    else if (['L'].includes(route)) bg = '#A7A9AC';
-    else if (['N','Q','R','W'].includes(route)) { bg = '#FCCC0A'; color = 'black'; }
-    else if (['S'].includes(route)) bg = '#808183';
-    else if (['T'].includes(route)) bg = '#00ADD0';
-
-    return `<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:${bg};color:${color};font-weight:bold;font-size:12px;margin-right:4px;">${route}</span>`;
-}
-
-function subwayBullets(routes) {
-    if (!routes) return '';
-    return String(routes)
-        .trim()
-        .split(/\s+/)
-        .map(subwayBullet)
-        .join('');
-}
-			function pop_NYCounties_1(feature, layer) {
+        function pop_NYCounties_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -318,7 +289,7 @@ ${feature.properties.Program_Ad || ''}, ${feature.properties.Program_Ci || ''}, 
 ${
 feature.properties.subway_Sto
 ? `<hr style="margin:8px 0;"><p style="margin:0 0 8px 0;"><b>🚇 Nearest Subway:</b><br>
-${feature.properties.subway_Sto || ''}<br><b>Routes:</b> ${subwayBullets(feature.properties.subway_Day)}</p>`
+${feature.properties.subway_Sto || ''}<br><b>Routes:</b> ${feature.properties.subway_Day || ''}</p>`
 : ''
 }
 
@@ -326,7 +297,7 @@ ${
 feature.properties.route_shor
 ? `<hr style="margin:8px 0;"><p style="margin:0;"><b>🚌 Nearest Bus Route:</b><br>
 ${feature.properties.route_shor || ''}</p>
-<p style="margin:6px 0 0 0;"><b>Agency:</b> ${feature.properties.agency_id || ''}</p>`
+<p style="margin:6px 0 0 0;"><b>Agency:</b> ${feature.properties.agency_cle || ''}</p>`
 : ''
 }
 
